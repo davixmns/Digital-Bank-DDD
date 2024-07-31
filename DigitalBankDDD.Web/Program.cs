@@ -11,6 +11,8 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 var mysqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
+var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+
 
 //Infraestructure
 builder.Services.AddDbContext<BankContext>(options =>
@@ -21,6 +23,8 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
+
+
 //Domain
 builder.Services.AddScoped<IAccountDomainService, AccountDomainService>();
 
