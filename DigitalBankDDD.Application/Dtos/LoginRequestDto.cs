@@ -1,23 +1,14 @@
 using System.ComponentModel.DataAnnotations;
+using DigitalBankDDD.Application.Validations;
 
 namespace DigitalBankDDD.Application.Dtos;
 
 public class LoginRequestDto
 {
-    [Required] //email Or CPF
+    [LoginRequestInputValidation]
     public string EmailOrCpf { get; set; } = string.Empty;
     
     [Required]
+    [MinLength(8)]
     public string Password { get; set; } = string.Empty;
-    
-    public bool IsEmail()
-    {
-        var emailAdressAttribute = new EmailAddressAttribute();
-        return emailAdressAttribute.IsValid(EmailOrCpf);
-    }
-    
-    public bool IsCpf()
-    {
-        return !IsEmail() && EmailOrCpf.Length is 11;
-    }
 }

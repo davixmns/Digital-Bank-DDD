@@ -6,6 +6,7 @@ using DigitalBankDDD.Domain.Services;
 using DigitalBankDDD.Infra.Database;
 using DigitalBankDDD.Infra.Repositories;
 using DigitalBankDDD.Infra.Utils;
+using DigitalBankDDD.Web.Handlers;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,13 +21,17 @@ builder.Services.AddDbContext<BankContext>(options =>
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 //Application
+builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
-
 //Domain
 builder.Services.AddScoped<IAccountDomainService, AccountDomainService>();
+
+//Handlers
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 
 //Utils
 builder.Services.AddEndpointsApiExplorer();
@@ -47,6 +52,6 @@ DatabaseConnectionTester.TestConnection(dbContext);
 
 app.MapControllers(); 
 
-app.MapGet("/", () => "Hello World!");
+app.UseExceptionHandler();
 
 app.Run();
