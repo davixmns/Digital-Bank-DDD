@@ -17,13 +17,13 @@ public sealed class AuthService : IAuthService
         _accountRepository = _unitOfWork.GetRepository<Account>();
     }
 
-    public async Task<ApiResult<LoginResponseDto>> LoginAsync(LoginRequestDto loginRequestDto)
+    public async Task<AppResult<LoginResponseDto>> LoginAsync(LoginRequestDto loginRequestDto)
     {
         var accountExists = await _accountRepository.GetAsync(a => a.Email == loginRequestDto.EmailOrCpf || a.Cpf == loginRequestDto.EmailOrCpf);
         
         if (accountExists is null)
-            return ApiResult<LoginResponseDto>.Failure("Account not found.");
+            return AppResult<LoginResponseDto>.Failure("Account not found.");
 
-        return ApiResult<LoginResponseDto>.Success(new LoginResponseDto());
+        return AppResult<LoginResponseDto>.Success(new LoginResponseDto());
     }
 }

@@ -22,36 +22,33 @@ public class TransactionService : ITransactionService
         _accountRepository = _unitOfWork.GetRepository<Account>();
         _mapper = mapper;
     }
-    
-    public async Task<ApiResult<TransactionResponseDto>> CreateTransactionAsync(TransactionRequestDto transactionRequestDto)
+
+    public async Task<AppResult<TransactionResponseDto>> CreateTransactionAsync(TransactionRequestDto transactionRequestDto) 
     {
-        try
-        {
-            var fromAccount = await _accountRepository.GetAsync(a => a.Id == transactionRequestDto.FromAccountId);
-            var toAccount = await _accountRepository.GetAsync(a => a.Id == transactionRequestDto.ToAccountId);
+        var fromAccount = await _accountRepository.GetAsync(a => a.Id == transactionRequestDto.FromAccountId);
+        var toAccount = await _accountRepository.GetAsync(a => a.Id == transactionRequestDto.ToAccountId);
+        
+        if (fromAccount is null || toAccount is null)
+            return AppResult<TransactionResponseDto>.Failure("Account not found.");
 
-            if (fromAccount is null || toAccount is null)
-                return ApiResult<TransactionResponseDto>.Failure("Account not found.");
+        var transferResult = fromAccount.TransferTo(toAccount, transactionRequestDto.Amount);
 
-            fromAccount.TransferTo(toAccount, transactionRequestDto.Amount);
-            
-            var transaction = new Transaction(
-                amount: transactionRequestDto.Amount,
-                fromAccount: fromAccount,
-                toAccount: toAccount,
-                description: transactionRequestDto.Description
-            );
-            
-            var createdTransaction = _transactionRepository.Save(transaction);
-            
-            await _unitOfWork.CommitAsync();
-            
-            return ApiResult<TransactionResponseDto>.Success(_mapper.Map<TransactionResponseDto>(createdTransaction));
-        }
-        catch (DomainException exception)
-        {
-            await _unitOfWork.RollBackAsync();
-            return ApiResult<TransactionResponseDto>.Failure(exception.Message);
-        }
+        if (!transferResult.IsSuccess)
+            return AppResult<TransactionResponseDto>.Failure(transferResult.ErrorMessage);
+
+        var transaction = new Transaction(
+            amount: transactionRequestDto.Amount,
+            fromAccount: fromAccount,
+            toAccount: toAccount,
+            description: transactionRequestDto.Description
+        );
+
+        var createdTransaction = _transactionRepository.Save(transaction);
+
+        await _unitOfWork.CommitAsync();
+
+        var dtoTransaction = _mapper.Map<TransactionResponseDto>(createdTransaction);
+
+        return AppResult<TransactionResponseDto>.Success(dtoTransaction);
     }
 }

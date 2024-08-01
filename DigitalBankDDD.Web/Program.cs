@@ -30,7 +30,6 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddScoped<IAccountDomainService, AccountDomainService>();
 
 //Handlers
-builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
 //Utils
@@ -39,6 +38,8 @@ builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseMiddleware<GlobalExceptionHandler>();
 
 if (app.Environment.IsDevelopment())
 {
@@ -50,8 +51,6 @@ using var scope = app.Services.CreateScope();
 var dbContext = scope.ServiceProvider.GetRequiredService<BankContext>();
 DatabaseConnectionTester.TestConnection(dbContext);
 
-app.MapControllers(); 
-
-app.UseExceptionHandler();
+app.MapControllers();
 
 app.Run();

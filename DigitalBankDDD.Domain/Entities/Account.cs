@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using DigitalBankDDD.Domain.Exceptions;
+using DigitalBankDDD.Domain.Wrapper;
 
 namespace DigitalBankDDD.Domain.Entities;
 
@@ -36,42 +37,57 @@ public class Account : BaseEntity
     [MinLength(8)] 
     public string? Password { get; set; } = string.Empty;
 
-    public void TransferTo(Account destinationAccount, decimal amount)
+    public DomainResult TransferTo(Account destinationAccount, decimal amount)
     {
-        if (amount <= 0)
-            throw new DomainException("The amount must be greater than zero.");
+        if(Equals(destinationAccount))
+            return DomainResult.Failure("The source and destination accounts must be different.");
         
-        if (!HasBalance(amount))
-            throw new DomainException("Insufficient balance.");
+        var withdrawResult = Withdraw(amount);
         
-        Withdraw(amount);
-        destinationAccount.Deposit(amount);
+        if (!withdrawResult.IsSuccess)
+            return withdrawResult;
+        
+        var depositResult = destinationAccount.Deposit(amount);
+        
+        if (!depositResult.IsSuccess)
+        {
+            Deposit(amount);
+            return depositResult;
+        }
+        
+        return DomainResult.Success();
     }
     
-    private void Deposit(decimal amount)
+    private DomainResult Deposit(decimal amount)
     {
         if (amount <= 0)
-            throw new DomainException("The amount must be greater than zero.");
+            return DomainResult.Failure("The amount must be greater than zero.");
         
         Balance += amount;
+        
+        return DomainResult.Success();
     }
 
-    private void Withdraw(decimal amount)
+    private DomainResult Withdraw(decimal amount)
     {
         if (amount <= 0)
-            throw new DomainException("The amount must be greater than zero.");
+            return DomainResult.Failure("The amount must be greater than zero.");
 
-        if (!HasBalance(amount))
-            throw new DomainException("Insufficient balance.");
+        if (!HasBalance(amount).IsSuccess)
+            return DomainResult.Failure("Insufficient balance.");
         
         Balance -= amount;
+        
+        return DomainResult.Success();
     }
     
-    private bool HasBalance(decimal amount)
+    private DomainResult HasBalance(decimal amount)
     {
         if (amount <= 0)
-            throw new DomainException("The amount must be greater than zero.");
+            return DomainResult.Failure("The amount must be greater than zero.");
 
-        return Balance >= amount;
+        return Balance >= amount ?
+            DomainResult.Success() :
+            DomainResult.Failure("Insufficient balance.");
     }
 }

@@ -1,4 +1,4 @@
-namespace DigitalBankDDD.Application;
+namespace DigitalBankDDD.Application.Exceptions;
 
 public class ApplicationException : Exception
 {

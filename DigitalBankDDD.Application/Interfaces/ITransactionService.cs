@@ -6,5 +6,5 @@ namespace DigitalBankDDD.Application.Interfaces;
 
 public interface ITransactionService
 {
-    Task<ApiResult<TransactionResponseDto>> CreateTransactionAsync(TransactionRequestDto transactionRequestDto);
+    Task<AppResult<TransactionResponseDto>> CreateTransactionAsync(TransactionRequestDto transactionRequestDto);
 }

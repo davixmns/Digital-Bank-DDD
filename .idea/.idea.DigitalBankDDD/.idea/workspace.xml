@@ -10,17 +10,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d61fe5c4-a631-475b-892f-93c42d90c8de" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/DigitalBankDDD.Application/Exceptions/ApplicationException.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DigitalBankDDD.Application/Validations/LoginRequestInputValidation.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DigitalBankDDD.Web/Handlers/GlobalExceptionHandler.cs" afterDir="false" />
+    <list default="true" id="d61fe5c4-a631-475b-892f-93c42d90c8de" name="Changes" comment=":sparles: Email or Cpf Custom validations">
+      <change afterPath="$PROJECT_DIR$/DigitalBankDDD.Domain/Wrapper/DomainResult.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DigitalBankDDD/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DigitalBankDDD/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DigitalBankDDD.Application/Dtos/LoginRequestDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DigitalBankDDD.Application/Dtos/LoginRequestDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DigitalBankDDD.Application/Exceptions/ApplicationException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DigitalBankDDD.Application/Exceptions/ApplicationException.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DigitalBankDDD.Application/Interfaces/IAccountService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DigitalBankDDD.Application/Interfaces/IAccountService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DigitalBankDDD.Application/Interfaces/IAuthService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DigitalBankDDD.Application/Interfaces/IAuthService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DigitalBankDDD.Application/Interfaces/ITransactionService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DigitalBankDDD.Application/Interfaces/ITransactionService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DigitalBankDDD.Application/Services/AccountService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DigitalBankDDD.Application/Services/AccountService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DigitalBankDDD.Application/Services/AuthService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DigitalBankDDD.Application/Services/AuthService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DigitalBankDDD.Web/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DigitalBankDDD.Web/Controllers/AuthController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DigitalBankDDD.Application/Services/TransactionService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DigitalBankDDD.Application/Services/TransactionService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DigitalBankDDD.Application/Wrapper/ApiResult.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DigitalBankDDD.Application/Wrapper/AppResult.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DigitalBankDDD.Domain/Entities/Account.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DigitalBankDDD.Domain/Entities/Account.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DigitalBankDDD.Web/Handlers/GlobalExceptionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DigitalBankDDD.Web/Handlers/GlobalExceptionHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DigitalBankDDD.Web/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DigitalBankDDD.Web/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DigitalBankDDD.Web/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/DigitalBankDDD.Web/appsettings.Development.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,8 +34,7 @@
     <option name="autoShow" value="false" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/DigitalBankDDD.Application/Wrapper/ApiResult.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock:///home/davixmns/Desktop/Digital-Bank-DDD/DigitalBankDDD.Web/appsettings.Development.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DigitalBankDDD.Application/Wrapper/AppResult.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProblemsViewState">
@@ -148,7 +150,7 @@
       <workItem from="1721746346905" duration="11850000" />
       <workItem from="1722015060519" duration="6723000" />
       <workItem from="1722280905530" duration="3735000" />
-      <workItem from="1722511573207" duration="9748000" />
+      <workItem from="1722511573207" duration="21109000" />
     </task>
     <task id="LOCAL-00001" summary=":sparkles: database context">
       <option name="closed" value="true" />
@@ -222,7 +224,15 @@
       <option name="project" value="LOCAL" />
       <updated>1722456414574</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary=":sparles: Email or Cpf Custom validations">
+      <option name="closed" value="true" />
+      <created>1722522652298</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1722522652298</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -241,6 +251,7 @@
     <MESSAGE value=":sparkles: UnitOfWork" />
     <MESSAGE value=":construction: :sparkles: Account Services in Application and Domain, creating account" />
     <MESSAGE value=":construction: Creating Login with Email or Cpf" />
-    <option name="LAST_COMMIT_MESSAGE" value=":construction: Creating Login with Email or Cpf" />
+    <MESSAGE value=":sparles: Email or Cpf Custom validations" />
+    <option name="LAST_COMMIT_MESSAGE" value=":sparles: Email or Cpf Custom validations" />
   </component>
 </project>

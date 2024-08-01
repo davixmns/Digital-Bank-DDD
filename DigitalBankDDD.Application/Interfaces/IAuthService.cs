@@ -5,5 +5,5 @@ namespace DigitalBankDDD.Application.Interfaces;
 
 public interface IAuthService
 {
-    Task<ApiResult<LoginResponseDto>> LoginAsync(LoginRequestDto loginRequestDto); 
+    Task<AppResult<LoginResponseDto>> LoginAsync(LoginRequestDto loginRequestDto); 
 }
